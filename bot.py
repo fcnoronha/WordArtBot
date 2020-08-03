@@ -14,9 +14,6 @@ logger = logging.getLogger()
 mode = os.getenv('MODE')
 TOKEN = os.getenv('BOT_TOKEN')
 
-print(mode)
-print(TOKEN)
-
 if mode == "dev":
     def run(updater):
         updater.start_polling()
@@ -49,14 +46,15 @@ def wordArt1(bot, update):
     chat_id = update.message.chat_id
     text = update.message.text
 
+    #bot.send_video(chat_id=chat_id, video='https://random.dog/e03b1dce-fe0c-4d47-a208-8f7c2a9ff57f.mp4')
     if (len(text) > 10):
         text = text[10:]
+        #print(text)
         file_path = str(update_id) + '.png'
-        os.system('python3 generate_art.py \'' + text + '\' ' + file_path)
-        bot.send_photo(chat_id=chat_id, photo=open(file_path, 'rb'))
-        os.remove(file_path)
-
-    #bot.send_video(chat_id=chat_id, video='https://random.dog/e03b1dce-fe0c-4d47-a208-8f7c2a9ff57f.mp4')
+        #os.system('python3 generate_art.py \'' + text + '\' ' + file_path)
+        bot.send_photo(chat_id=chat_id, photo=open('not-yet.png', 'rb'))
+        #bot.send_photo(chat_id=chat_id, photo=open(file_path, 'rb'))
+        #os.remove(file_path)
 
 if __name__ == '__main__':
 
