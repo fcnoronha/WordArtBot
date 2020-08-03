@@ -1,2 +1,5 @@
 python-telegram-bot
-pythonWordArt
+opencv-python
+imgkit
+numpy
+Pillow

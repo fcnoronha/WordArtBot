@@ -35,7 +35,6 @@ def wordArt1(bot, update):
         text = text[10:]
         file_path = str(update_id) + '.png'
         os.system('python3 generate_art.py \'' + text + '\' ' + file_path)
-        bot.send_photo(chat_id=chat_id, photo=open('not-yet.png', 'rb'))
         bot.send_photo(chat_id=chat_id, photo=open(file_path, 'rb'))
         os.remove(file_path)
 

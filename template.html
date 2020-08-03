@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>CSS3 WordArt</title>
+    <link href="http://cdn.jsdelivr.net/gh/zorbaproject/pythonWordArt/pythonWordArt/css3wordart/css/style.css"
+        rel="stylesheet" type="text/css" />
+    <script
+        src="http://cdn.jsdelivr.net/gh/zorbaproject/pythonWordArt/pythonWordArt/css3wordart/js/object-observe-lite.js"></script>
+    <script
+        src="http://cdn.jsdelivr.net/gh/zorbaproject/pythonWordArt/pythonWordArt/css3wordart/js/wordart.js"></script>
+</head>
+
+<body>
+    <input type="hidden" id="canvasWidth" name="canvasWidth" value="3000">
+    <input type="hidden" id="canvasHeight" name="canvasHeight" value="3000">
+    <input type="hidden" id="wordart-style" name="wordart-style" value="$$STYLE$$">
+    <input type="hidden" id="wordart-size" name="wordart-size" value="100">
+    <section class="background">
+        <template id="bgWordart">
+            <div class="wordart">
+                <span class="text" id="wordart-text" name="wordart-text" data-text="$$TEXT$$">$$TEXT$$</span>
+            </div>
+        </template>
+    </section>
+</body>
+
+</html>
