@@ -16,10 +16,14 @@ def main():
     # There are 30 available WordArt styles
     style = randint(0, 29)
 
+    print('GENERATOR: starting')
     w = pyWordArt()
     w.transparentBackground = True
+    print('GENERATOR: generating')
     w.WordArt(TEXT, style, 100)
+    print('GENERATOR: saving')
     w.toFile(FILE_PATH)
+    print('GENERATOR: saved')
 
 if __name__ == "__main__":
     main()

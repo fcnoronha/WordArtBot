@@ -11,24 +11,8 @@ logging.basicConfig(level=logging.INFO,
                     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
 logger = logging.getLogger()
 
-mode = os.getenv('MODE')
+MODE = os.getenv('MODE')
 TOKEN = os.getenv('BOT_TOKEN')
-
-if mode == "dev":
-    def run(updater):
-        updater.start_polling()
-elif mode == "prod":
-    def run(updater):
-        PORT = int(os.environ.get("PORT", "8443"))
-        HEROKU_APP_NAME = os.environ.get("HEROKU_APP_NAME")
-        # Code from https://github.com/python-telegram-bot/python-telegram-bot/wiki/Webhooks#heroku
-        updater.start_webhook(listen="0.0.0.0",
-                              port=PORT,
-                              url_path=TOKEN)
-        updater.bot.set_webhook("https://{}.herokuapp.com/{}".format(HEROKU_APP_NAME, TOKEN))
-else:
-    logger.error("No MODE specified!")
-    sys.exit(1)
 
 def generate_art(text, fila_path):
     
@@ -49,12 +33,11 @@ def wordArt1(bot, update):
     #bot.send_video(chat_id=chat_id, video='https://random.dog/e03b1dce-fe0c-4d47-a208-8f7c2a9ff57f.mp4')
     if (len(text) > 10):
         text = text[10:]
-        #print(text)
         file_path = str(update_id) + '.png'
-        #os.system('python3 generate_art.py \'' + text + '\' ' + file_path)
+        os.system('python3 generate_art.py \'' + text + '\' ' + file_path)
         bot.send_photo(chat_id=chat_id, photo=open('not-yet.png', 'rb'))
-        #bot.send_photo(chat_id=chat_id, photo=open(file_path, 'rb'))
-        #os.remove(file_path)
+        bot.send_photo(chat_id=chat_id, photo=open(file_path, 'rb'))
+        os.remove(file_path)
 
 if __name__ == '__main__':
 
@@ -64,4 +47,16 @@ if __name__ == '__main__':
     dp = updater.dispatcher
     dp.add_handler(CommandHandler('wordart1', wordArt1))
 
-    run(updater)
+    # Code from https://github.com/python-telegram-bot/python-telegram-bot/wiki/Webhooks#heroku
+    if MODE == "dev":
+        updater.start_polling()
+    elif MODE == "prod":
+        PORT = int(os.environ.get("PORT", "8443"))
+        HEROKU_APP_NAME = os.environ.get("HEROKU_APP_NAME")
+        updater.start_webhook(listen="0.0.0.0",
+                              port=PORT,
+                              url_path=TOKEN)
+        updater.bot.set_webhook("https://{}.herokuapp.com/{}".format(HEROKU_APP_NAME, TOKEN))
+    else:
+        logger.error("ERROR: No MODE specified!")
+        sys.exit(1)
