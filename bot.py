@@ -1,5 +1,4 @@
 from telegram.ext import Updater, CommandHandler
-from pythonWordArt import pyWordArt
 from random import randint
 import logging
 import sys
@@ -13,16 +12,6 @@ logger = logging.getLogger()
 
 MODE = os.getenv('MODE')
 TOKEN = os.getenv('BOT_TOKEN')
-
-def generate_art(text, fila_path):
-    
-    # There are 30 available WordArt styles
-    style = randint(0, 29)
-
-    w = pyWordArt()
-    w.transparentBackground = True
-    w.WordArt(text, style, 100)
-    w.toFile(fila_path)
 
 def wordArt1(bot, update):
 
