@@ -4,7 +4,6 @@ import logging
 import sys
 import os
 
-
 # enabling logging
 logging.basicConfig(level=logging.INFO,
                     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
@@ -16,16 +15,22 @@ TOKEN = os.getenv('BOT_TOKEN')
 def wordArt1(bot, update):
 
     update_id = update['update_id']
-    chat_id = update.message.chat_id
-    text = update.message.text
-
-    #bot.send_video(chat_id=chat_id, video='https://random.dog/e03b1dce-fe0c-4d47-a208-8f7c2a9ff57f.mp4')
-    if (len(text) > 10):
+    chat_id = update['message']['chat_id']
+    
+    if update['message']['text'] is not None:
+        text = update['message']['text']
+        if (len(text) <= 10):
+            update.message.reply_text('Escreva uma mensagem ou responda a outra')
+            return
         text = text[10:]
-        file_path = str(update_id) + '.png'
-        os.system('python3 generate_art.py \'' + text + '\' ' + file_path)
-        bot.send_photo(chat_id=chat_id, photo=open(file_path, 'rb'))
-        os.remove(file_path)
+
+    elif update['message']['reply_to_message']['text'] is not None:
+        text = update['message']['reply_to_message']['text']
+    
+    file_path = str(update_id) + '.png'
+    os.system('python3 generate_art.py \'' + text + '\' ' + file_path)
+    bot.send_photo(chat_id=chat_id, photo=open(file_path, 'rb'))
+    os.remove(file_path)
 
 if __name__ == '__main__':
 

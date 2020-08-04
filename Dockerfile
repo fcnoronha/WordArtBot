@@ -8,8 +8,3 @@ RUN apt-get install -y wkhtmltopdf
 
 RUN pip3 install -r requirements.txt
 ADD . /app
-
-RUN adduser --disabled-password --gecos '' admin
-USER admin
-
-CMD python3 bot.py 
