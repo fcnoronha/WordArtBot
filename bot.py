@@ -29,6 +29,7 @@ def help(update, context):
              '\- Forward some text message to @bestWordArtBot\n'
              '\- Answer to a massage with the /wordart command\n'
              '\- Write the desired text right after /wordart\n\n'
+             'You can also use the /raibow command instead of the /wordart\.'
              'Visit me on [GitHub](https://github.com/mrfelipenoronha/WordArtBot)\.')
 
 def unknown(update, context):
@@ -55,7 +56,12 @@ def wordArt(update, context, is_rainbow=''):
             text = text[8:]
             if len(text) == 0:
                 return help(update, context)
-        
+
+    if len(text) > 15:
+        context.bot.send_message(
+        chat_id=update.effective_chat.id, 
+        text='Hello! This message is too big for me, maximum length is 15.')
+
     os.system('python3 generate_art.py \'' + text + '\' ' + file_path + is_rainbow)
     context.bot.send_photo(chat_id=chat_id, photo=open(file_path, 'rb'))
     os.remove(file_path)
