@@ -60,7 +60,8 @@ def wordArt(update, context, is_rainbow=''):
     if len(text) > 15:
         context.bot.send_message(
         chat_id=update.effective_chat.id, 
-        text='Hello! This message is too big for me, maximum length is 15.')
+        text='Hello! This message is too big maximum length is 15.')
+        return
 
     os.system('python3 generate_art.py \'' + text + '\' ' + file_path + is_rainbow)
     context.bot.send_photo(chat_id=chat_id, photo=open(file_path, 'rb'))
