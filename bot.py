@@ -45,7 +45,8 @@ def wordArt(update, context, is_rainbow=''):
         text = update['message']['reply_to_message']['text']
     else:
         # generate ww only if its not forwarded inside group
-        if update['message']['chat']['type'] == 'group':
+        if update['message']['forward_from'] is not None and \
+           update['message']['chat']['type'] == 'group':
             return
         # get message text
         text = update['message']['text']
