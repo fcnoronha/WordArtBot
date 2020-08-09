@@ -53,9 +53,13 @@ def wordArt(update, context, is_rainbow=''):
         if text[0] == '/':
             text = ' '.join(text.split(' ')[1:])
 
+    if len(text) == 0:
+        return help(update, context)
+
+    chat_id = update['message']['chat_id']
     if len(text) > 20:
         context.bot.send_message(
-        chat_id=update.effective_chat.id, 
+        chat_id=chat_id, 
         text='Hello! This message is too big maximum length is 20.')
         return
 
@@ -64,7 +68,9 @@ def wordArt(update, context, is_rainbow=''):
         msg='Message received, generating wordart')
 
     os.system('python3 generate_art.py \'' + text + '\' ' + file_path + is_rainbow)
-    context.bot.send_photo(chat_id=chat_id, photo=open(file_path, 'rb'))
+    context.bot.send_photo(
+        chat_id=chat_id, 
+        photo=open(file_path, 'rb'))
     os.remove(file_path)
 
 def rainbow(update, context):
