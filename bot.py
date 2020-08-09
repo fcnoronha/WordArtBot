@@ -44,10 +44,6 @@ def wordArt(update, context, is_rainbow=''):
     if update['message']['reply_to_message'] is not None:
         text = update['message']['reply_to_message']['text']
     else:
-        # generate ww only if its not forwarded inside group
-        if update['message']['forward_from'] is not None and \
-           update['message']['chat']['type'] == 'group':
-            return
         # get message text
         text = update['message']['text']
         # get command out
@@ -89,7 +85,6 @@ if __name__ == '__main__':
     dp.add_handler(CommandHandler('help', help))
     dp.add_handler(CommandHandler('wordart', wordArt))
     dp.add_handler(CommandHandler('rainbow', rainbow))
-    dp.add_handler(MessageHandler(Filters.forwarded & Filters.text, wordArt))
     dp.add_handler(MessageHandler(Filters.command, unknown))
 
     # differrent deploy modes for develepment and heroku
