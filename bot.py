@@ -40,21 +40,18 @@ def unknown(update, context):
 def wordArt(update, context, is_rainbow=''):
     update_id = update['update_id']
     file_path = str(update_id) + '.png'
-    chat_id = update['message']['chat_id']
     # get text from reply
     if update['message']['reply_to_message'] is not None:
         text = update['message']['reply_to_message']['text']
     else:
-        # get forwarded text
-        text = update['message']['text']
-        # get command out if it is not forwarded
-        if update['message']['forward_from'] is None:
-            text = text[8:]
-            if len(text) == 0:
-                return help(update, context)
         # generate ww only if its not forwarded inside group
-        elif update['message']['chat']['type'] == 'group':
+        if update['message']['chat']['type'] == 'group':
             return
+        # get message text
+        text = update['message']['text']
+        # get command out
+        if text[0] == '/':
+            text = ' '.join(text.split(' ')[1:])
 
     if len(text) > 20:
         context.bot.send_message(
