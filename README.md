@@ -10,4 +10,4 @@ The most simple way is to build and run the Docker container, just issue `$ dock
 
 Alternatively you can install all the dependencies (check the Dockerfile for more information) and run `$ export MODE=dev && export BOT_TOKEN=<token> && python3 bot.py`.
 
-Thanks [@arizzitano](https://github.com/arizzitano/css3wordart) for creating the reproduction of WordArt in CSS2 and [@zorbaproject](https://github.com/zorbaproject/pythonWordArt) for presenting a simple template to generate the WordArt text.
+Thanks [@arizzitano](https://github.com/arizzitano/css3wordart) for creating the reproduction of WordArt in CSS3 and [@zorbaproject](https://github.com/zorbaproject/pythonWordArt) for presenting a simple template to generate the WordArt text.

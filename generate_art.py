@@ -34,7 +34,7 @@ def wordart_to_image():
     # A FUCKING RAINBOW WORDART
     if IS_RAINBOW: style = 15
 
-    width = max([1000, len(TEXT)*130])
+    width = max([1000, len(TEXT)*200])
     options = {
         'format': 'png',
         'encoding': "UTF-8",
