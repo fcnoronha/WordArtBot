@@ -4,10 +4,10 @@ import logging
 import sys
 import os
 
+HEROKU_APP_NAME = os.getenv("HEROKU_APP_NAME")
+PORT = int(os.environ.get("PORT", "8443"))
 TOKEN = os.getenv('BOT_TOKEN')
 MODE = os.getenv('MODE')
-PORT = int(os.environ.get("PORT", "8443"))
-HEROKU_APP_NAME = os.environ.get("HEROKU_APP_NAME")
 
 # enabling logging for error handling
 logging.basicConfig(
@@ -26,10 +26,9 @@ def help(update, context):
         parse_mode='MarkdownV2',
         disable_web_page_preview=True,
         text='To geneate an WordArt you have the following options:\n\n'
-             '\- Forward some text message to @bestWordArtBot\n'
              '\- Answer to a massage with the /wordart command\n'
-             '\- Write the desired text right after /wordart\n\n'
-             'You can also use the /raibow command instead of the /wordart\. \n'
+             '\- Write the desired text right next to /wordart\n\n'
+             'You can also use the /rainbow command instead of the /wordart\. '
              'Visit me on [GitHub](https://github.com/mrfelipenoronha/WordArtBot)\.')
 
 def unknown(update, context):
