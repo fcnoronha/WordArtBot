@@ -1,5 +1,6 @@
 from telegram.ext import Updater, CommandHandler, Filters, MessageHandler
 from random import randint
+import wordart_generator
 import logging
 import sys
 import os
@@ -28,7 +29,7 @@ def help(update, context):
         text='To geneate an WordArt you have the following options:\n\n'
              '\- Answer to a massage with the /wordart command\n'
              '\- Write the desired text right next to /wordart\n\n'
-             'You can also use the /rainbow command instead of the /wordart\. '
+             'You can also use the /rainbow command instead of /wordart\. '
              'Visit me on [GitHub](https://github.com/mrfelipenoronha/WordArtBot)\.')
 
 def unknown(update, context):
@@ -36,7 +37,7 @@ def unknown(update, context):
         chat_id=update.effective_chat.id, 
         text="Sorry, I didn't understand that command, type /help for help.")
 
-def wordArt(update, context, is_rainbow=''):
+def wordArt(update, context, is_rainbow=False):
     update_id = update['update_id']
     file_path = str(update_id) + '.png'
     # get text from reply
@@ -63,14 +64,14 @@ def wordArt(update, context, is_rainbow=''):
         level=logging.INFO, 
         msg='Message received, generating wordart')
 
-    os.system('python3 generate_art.py \'' + text + '\' ' + file_path + is_rainbow)
+    wordart_generator.generate(text, file_path, is_rainbow)
     context.bot.send_photo(
         chat_id=chat_id, 
         photo=open(file_path, 'rb'))
     os.remove(file_path)
 
 def rainbow(update, context):
-    return wordArt(update, context, ' 1')
+    return wordArt(update, context, True)
 
 if __name__ == '__main__':
     logging.getLogger().info("Starting bot")
