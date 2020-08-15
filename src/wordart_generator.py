@@ -39,7 +39,7 @@ def wordart_to_image(text, file_path, is_rainbow):
     }
 
     absolute_path = os.path.dirname(os.path.abspath(__file__))
-    with open('template.html', 'r', encoding='utf-8') as template:
+    with open('../assets/template.html', 'r', encoding='utf-8') as template:
         t = template.read()
         t = t.replace('$$ABS_PATH$$', str(absolute_path))
         t = t.replace('$$STYLE$$', str(style))

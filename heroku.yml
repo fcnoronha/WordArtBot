@@ -2,4 +2,4 @@ build:
     docker:
         web: Dockerfile
 run:
-    web: python3 bot.py -e BOT_TOKEN=$BOT_TOKEN -e MODE=$MODE 
+    web: python3 src/bot.py -e BOT_TOKEN=$BOT_TOKEN -e MODE=$MODE 

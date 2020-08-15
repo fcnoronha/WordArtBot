@@ -26,7 +26,7 @@ def help(update, context):
         chat_id=update.effective_chat.id, 
         parse_mode='MarkdownV2',
         disable_web_page_preview=True,
-        text='To geneate an WordArt you have the following options:\n\n'
+        text='To generate an WordArt you have the following options:\n\n'
              '\- Answer to a massage with the /wordart command\n'
              '\- Write the desired text right next to /wordart\n\n'
              'You can also use the /rainbow command instead of /wordart\. '
@@ -54,10 +54,10 @@ def wordArt(update, context, is_rainbow=False):
         return help(update, context)
 
     chat_id = update['message']['chat_id']
-    if len(text) > 20:
+    if len(text) > 30:
         context.bot.send_message(
         chat_id=chat_id, 
-        text='Hello! This message is too big maximum length is 20.')
+        text='Hello! This message is too big maximum length is 30.')
         return
 
     logging.getLogger().log(
