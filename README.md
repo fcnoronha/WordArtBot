@@ -11,7 +11,7 @@ To generate an WordArt you have the following options:
 - Answer to a massage with the `/wordart` command
 - Write the desired text right next to `/wordart`
 
-You can also use the `/rainbow` command instead of `/wordart`.
+You can also use the `/rainbow` command instead of `/wordart`. Use also `/two` and `/three` to generate compositions of multiple WordArt styles.
 
 ## Running locally
 

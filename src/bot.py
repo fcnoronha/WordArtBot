@@ -30,6 +30,7 @@ def help(update, context):
              '\- Answer to a massage with the /wordart command\n'
              '\- Write the desired text right next to /wordart\n\n'
              'You can also use the /rainbow command instead of /wordart\. '
+             'Experiment also the /two and /three command to gerate composites\. '
              'Visit me on [GitHub](https://github.com/mrfelipenoronha/WordArtBot)\.')
 
 def unknown(update, context):
@@ -37,9 +38,7 @@ def unknown(update, context):
         chat_id=update.effective_chat.id, 
         text="Sorry, I didn't understand that command, type /help for help.")
 
-def wordArt(update, context, is_rainbow=False):
-    update_id = update['update_id']
-    file_path = str(update_id) + '.png'
+def handle_text(update, context):
     # get text from reply
     if update['message']['reply_to_message'] is not None:
         text = update['message']['reply_to_message']['text']
@@ -49,29 +48,44 @@ def wordArt(update, context, is_rainbow=False):
         # get command out
         if text[0] == '/':
             text = ' '.join(text.split(' ')[1:])
-
     if len(text) == 0:
-        return help(update, context)
-
-    chat_id = update['message']['chat_id']
+        help(update, context)
+        return None
     if len(text) > 30:
         context.bot.send_message(
-        chat_id=chat_id, 
-        text='Hello! This message is too big maximum length is 30.')
-        return
-
+            chat_id=update['message']['chat_id'], 
+            text='Hello! This message is too big maximum length is 30.')
+        return None
     logging.getLogger().log(
         level=logging.INFO, 
         msg='Message received, generating wordart')
+    return text
 
-    wordart_generator.generate(text, file_path, is_rainbow)
+def compose(update, context, style=None, n_layer=1):
+    '''
+    Compose a wordart using a default style or not with n_layers of different
+    styles
+    '''
+    file_path = 'out.png'
+    text = handle_text(update, context)
+    if text is None: return
+    wordart_generator.generate(text, file_path, style, n_layer)
     context.bot.send_photo(
-        chat_id=chat_id, 
+        chat_id=update['message']['chat_id'], 
         photo=open(file_path, 'rb'))
     os.remove(file_path)
 
+def wordArt(update, context):
+    return compose(update, context)
+
 def rainbow(update, context):
-    return wordArt(update, context, True)
+    return compose(update, context, style=15)
+
+def two(update, context):
+    return compose(update, context, n_layer=2)
+
+def three(update, context):
+    return compose(update, context, n_layer=3)
 
 if __name__ == '__main__':
     logging.getLogger().info("Starting bot")
@@ -85,6 +99,8 @@ if __name__ == '__main__':
     dp.add_handler(CommandHandler('help', help))
     dp.add_handler(CommandHandler('wordart', wordArt))
     dp.add_handler(CommandHandler('rainbow', rainbow))
+    dp.add_handler(CommandHandler('two', two))
+    dp.add_handler(CommandHandler('three', three))
     dp.add_handler(MessageHandler(Filters.command, unknown))
 
     # differrent deploy modes for develepment and heroku
