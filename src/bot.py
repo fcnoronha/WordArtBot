@@ -45,16 +45,20 @@ def handle_text(update, context):
     else:
         # get message text
         text = update['message']['text']
+        if text is None: 
+            return None
         # get command out
         if text[0] == '/':
             text = ' '.join(text.split(' ')[1:])
+    if text is None: 
+        return None
     if len(text) == 0:
         help(update, context)
         return None
-    if len(text) > 30:
+    if len(text) > 40:
         context.bot.send_message(
             chat_id=update['message']['chat_id'], 
-            text='Hello! This message is too big maximum length is 30.')
+            text='Hello! This message is too big maximum length is 40.')
         return None
     logging.getLogger().log(
         level=logging.INFO, 
