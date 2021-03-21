@@ -83,5 +83,3 @@ def generate(text, final_file_path, style, n_layer):
         img_list.append(file_path)
     concatenate_images(img_list, final_file_path)
     for i in img_list: os.remove(i)
-
-generate('oi felipe meu', 'oi.png', None, 1)

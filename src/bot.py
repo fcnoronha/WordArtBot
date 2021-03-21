@@ -31,7 +31,7 @@ def help(update, context):
              '\- Write the desired text right next to /wordart\n\n'
              'You can also use the /rainbow command instead of /wordart\. '
              'Experiment also the /two and /three command to gerate composites\. '
-             'Visit me on [GitHub](https://github.com/mrfelipenoronha/WordArtBot)\.')
+             'Visit me on [GitHub](https://github.com/fcnoronha/WordArtBot)\.')
 
 def unknown(update, context):
     context.bot.send_message(

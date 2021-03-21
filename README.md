@@ -1,4 +1,5 @@
-![WordArtBot logo](images/logo.png)
+
+# ![WordArtBot logo](images/logo.png)
 
 The Telegram bot that generate beautiful wordArts for you! Try it on [**@bestWordArtBot**](https://t.me/bestWordArtBot).
 
