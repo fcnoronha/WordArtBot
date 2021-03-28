@@ -6,7 +6,7 @@ import sys
 import os
 
 HEROKU_APP_NAME = os.getenv("HEROKU_APP_NAME")
-PORT = int(os.environ.get("PORT", "8443"))
+PORT = int(os.environ.get("PORT", "80"))
 TOKEN = os.getenv('BOT_TOKEN')
 MODE = os.getenv('MODE')
 
