@@ -10,12 +10,14 @@ PORT = int(os.environ.get("PORT", "8443"))
 TOKEN = os.getenv('BOT_TOKEN')
 MODE = os.getenv('MODE')
 
-print(PORT)
-
 # enabling logging for error handling
 logging.basicConfig(
-        level=logging.INFO,
-        format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+    level=logging.INFO,
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+
+logging.getLogger().log(
+    level=logging.INFO, 
+    msg='PORT = ' + str(PORT))
 
 def start(update, context):
     context.bot.send_message(
